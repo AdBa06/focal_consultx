@@ -1,4 +1,4 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
@@ -7,19 +7,19 @@
   <meta name="description" content="Focal reads your existing work artifacts and surfaces early warning signals automatically." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@700;800;900&display=swap" rel="stylesheet" />
   <style>
     :root {
-      --bg: #0a0a0a;
-      --bg-elev: #101317;
-      --surface: #0d1116;
-      --text: #e9eef5;
-      --muted: #9aa8ba;
-      --accent: #3bb3ff;
-      --accent-soft: rgba(59, 179, 255, 0.22);
-      --border: rgba(145, 170, 198, 0.26);
+      --bg: #ffffff;
+      --bg-elev: #f7f8fa;
+      --surface: #ffffff;
+      --text: #1a1a1a;
+      --muted: #6b7280;
+      --accent: #1b3a5c;
+      --accent-soft: rgba(27, 58, 92, 0.1);
+      --border: #e2e6ea;
       --radius: 14px;
-      --shadow: 0 16px 34px rgba(0, 0, 0, 0.4);
+      --shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
       --maxw: 1120px;
       --gap: clamp(1rem, 2.2vw, 1.5rem);
       --section-pad: clamp(4rem, 10vh, 7rem);
@@ -29,8 +29,9 @@
       --h3: clamp(1.1rem, 2.2vw, 1.3rem);
       --body: clamp(1rem, 1.2vw, 1.07rem);
       --mono: "SFMono-Regular", Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-      --sans: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-      color-scheme: dark;
+      --sans: "Inter", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      --serif: "Playfair Display", Georgia, "Times New Roman", serif;
+      color-scheme: light;
       scroll-behavior: smooth;
     }
 
@@ -54,30 +55,7 @@
     body {
       position: relative;
       overflow-x: hidden;
-      background-image:
-        linear-gradient(rgba(75, 109, 140, 0.07) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(75, 109, 140, 0.07) 1px, transparent 1px);
-      background-size: 42px 42px;
-      background-attachment: fixed;
-    }
-
-    body::before {
-      content: "";
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      background:
-        radial-gradient(1200px 500px at 50% -10%, rgba(59, 179, 255, 0.07), transparent 60%),
-        repeating-linear-gradient(
-          to bottom,
-          rgba(255, 255, 255, 0.01) 0,
-          rgba(255, 255, 255, 0.01) 1px,
-          transparent 2px,
-          transparent 4px
-        );
-      mix-blend-mode: screen;
-      opacity: 0.4;
-      z-index: 0;
+      background-image: none;
     }
 
     a {
@@ -110,7 +88,7 @@
     .divider {
       height: 1px;
       width: 100%;
-      background: linear-gradient(90deg, transparent, var(--border) 15%, var(--border) 85%, transparent);
+      background: var(--border);
       margin: 0;
       border: 0;
     }
@@ -119,9 +97,8 @@
       position: sticky;
       top: 0;
       z-index: 8;
-      backdrop-filter: blur(8px);
-      background: rgba(10, 10, 10, 0.82);
-      border-bottom: 1px solid var(--border);
+      background: #ffffff;
+      border-bottom: 1px solid #e2e6ea;
     }
 
     .nav-row {
@@ -136,9 +113,9 @@
       display: inline-flex;
       align-items: center;
       gap: 0.5rem;
-      font-family: "IBM Plex Mono", var(--mono);
+      font-family: var(--sans);
       font-weight: 700;
-      letter-spacing: 0.15em;
+      letter-spacing: 0.08em;
       text-transform: uppercase;
       text-decoration: none;
       color: var(--text);
@@ -148,16 +125,17 @@
       width: 0.5rem;
       height: 0.5rem;
       border-radius: 999px;
-      background: #4ECDC4;
-      box-shadow: 0 0 0 1px rgba(78, 205, 196, 0.2), 0 0 14px rgba(78, 205, 196, 0.32);
+      background: #1b3a5c;
       flex: 0 0 auto;
     }
 
     .hero {
-      min-height: 100svh;
+      min-height: calc(100vh - 66px);
       display: grid;
       align-items: center;
-      padding-block: var(--hero-pad) clamp(3.5rem, 8vh, 5rem);
+      margin-top: 0;
+      padding-top: 0;
+      padding-bottom: 0;
       position: relative;
       isolation: isolate;
     }
@@ -166,31 +144,30 @@
       display: grid;
       gap: clamp(1.4rem, 3vw, 2.3rem);
       grid-template-columns: 1.2fr minmax(250px, 0.8fr);
-      align-items: end;
+      align-items: center;
     }
 
     .eyebrow {
-      font-family: var(--mono);
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
+      font-family: var(--sans);
       color: var(--muted);
-      font-size: 0.75rem;
+      font-size: 0.82rem;
       margin-bottom: 1rem;
+      font-weight: 600;
     }
 
     h1,
     h2,
     h3 {
+      font-family: var(--serif);
       margin: 0;
       line-height: 1.04;
-      letter-spacing: -0.03em;
+      letter-spacing: 0;
       text-wrap: balance;
     }
 
     h1 {
       font-size: 64px;
-      font-weight: 900;
-      text-transform: uppercase;
+      font-weight: 400;
       max-width: 16ch;
     }
 
@@ -203,15 +180,13 @@
     h3 {
       font-size: var(--h3);
       font-weight: 760;
-      text-transform: uppercase;
-      letter-spacing: 0.02em;
     }
 
     .hero p {
       margin: 1.35rem 0 0;
       font-size: clamp(1.05rem, 1.35vw, 1.16rem);
       max-width: 62ch;
-      color: #cfdae8;
+      color: var(--muted);
     }
 
     .cta-row {
@@ -223,28 +198,25 @@
     }
 
     .btn {
-      --btn-bg: #111b24;
       display: inline-flex;
       align-items: center;
       justify-content: center;
       gap: 0.4rem;
-      border: 1px solid rgba(59, 179, 255, 0.5);
-      background: linear-gradient(180deg, rgba(24, 35, 46, 0.9), rgba(12, 18, 24, 0.9));
-      color: var(--text);
-      border-radius: 999px;
+      border: 1px solid #1b3a5c;
+      background: #1b3a5c;
+      color: #ffffff;
+      border-radius: 6px;
       padding: 0.78rem 1.2rem;
-      font-weight: 720;
+      font-weight: 700;
       text-decoration: none;
-      letter-spacing: 0.01em;
-      box-shadow: inset 0 0 0 1px rgba(101, 191, 255, 0.08), 0 0 0 0 rgba(59, 179, 255, 0.2);
-      transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+      transition: transform 0.25s ease, background-color 0.2s ease, border-color 0.2s ease;
       cursor: pointer;
     }
 
     .btn:hover {
       transform: translateY(-2px);
-      border-color: rgba(113, 207, 255, 0.72);
-      box-shadow: inset 0 0 0 1px rgba(113, 207, 255, 0.2), 0 8px 24px rgba(59, 179, 255, 0.16);
+      background: #162f4a;
+      border-color: #162f4a;
     }
 
     .btn:focus-visible,
@@ -257,76 +229,149 @@
     .console {
       position: relative;
       border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 1rem;
-      background: linear-gradient(180deg, rgba(18, 26, 34, 0.7), rgba(10, 14, 19, 0.88));
+      border-radius: 12px;
+      padding: 20px;
+      background: #ffffff;
       box-shadow: var(--shadow);
       overflow: hidden;
-      min-height: 230px;
-    }
-
-    .console::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
-      border-radius: inherit;
-      background: linear-gradient(90deg, transparent, rgba(59, 179, 255, 0.08), transparent);
-      transform: translateX(-100%);
-      animation: scan 5.8s linear infinite;
+      min-height: 320px;
     }
 
     .console-header {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin-bottom: 0.75rem;
-      color: #a8b9cf;
-      font-family: var(--mono);
-      font-size: 0.72rem;
-      text-transform: uppercase;
-      letter-spacing: 0.09em;
+      margin-bottom: 0.95rem;
+      color: var(--text);
+      font-size: 0.95rem;
+      font-weight: 600;
     }
 
-    .console-grid {
+    .console-summary {
+      font-size: 0.75rem;
+      color: #dc2626;
+      font-weight: 600;
+    }
+
+    .console-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
       display: grid;
-      gap: 0.6rem;
+      gap: 0;
     }
 
-    .signal-line {
-      height: 24px;
-      width: 100%;
-      position: relative;
-      border: 1px solid rgba(123, 150, 178, 0.26);
-      border-radius: 6px;
-      background:
-        linear-gradient(90deg, rgba(59, 179, 255, 0.12), transparent 50%),
-        repeating-linear-gradient(90deg, rgba(128, 161, 194, 0.16), rgba(128, 161, 194, 0.16) 1px, transparent 1px, transparent 8px);
-      overflow: hidden;
-    }
-
-    .signal-line::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background:
-        linear-gradient(90deg, transparent 0, rgba(59, 179, 255, 0.56) 45%, transparent 70%);
-      mix-blend-mode: screen;
-      transform: translateX(-120%);
-      animation: pulse 3.8s ease-in-out infinite;
-    }
-
-    .signal-caption {
+    .console-item {
       display: flex;
+      align-items: flex-start;
       justify-content: space-between;
-      gap: 1rem;
-      font-family: var(--mono);
-      font-size: 0.73rem;
-      color: #98abc1;
+      gap: 0.85rem;
+      border: 0;
+      border-radius: 8px;
+      padding: 0.85rem 0.1rem;
+      background: #ffffff;
+    }
+
+    .console-item:not(:last-child) {
+      border-bottom: 1px solid #e5e7eb;
+    }
+
+    .console-item.risk-row {
+      background: #fff5f5;
+      margin-top: 0.1rem;
+      padding-inline: 0.5rem;
+    }
+
+    .console-main {
+      min-width: 0;
+      flex: 1 1 auto;
+    }
+
+    .console-head {
+      display: flex;
+      align-items: center;
+      gap: 0.55rem;
+      min-width: 0;
+      margin-bottom: 0.25rem;
+    }
+
+    .status-dot {
+      width: 0.55rem;
+      height: 0.55rem;
+      border-radius: 999px;
+      margin-top: 0;
+      flex: 0 0 auto;
+    }
+
+    .status-dot.good {
+      background: #22c55e;
+    }
+
+    .status-dot.warn {
+      background: #f59e0b;
+    }
+
+    .status-dot.risk {
+      background: #ef4444;
+    }
+
+    .console-title {
+      margin: 0;
+      font-size: 0.95rem;
+      line-height: 1.35;
+      color: #1f2937;
+      font-weight: 600;
+      overflow-wrap: anywhere;
+    }
+
+    .console-meta {
+      margin: 0.16rem 0 0;
+      font-size: 0.82rem;
+      color: var(--muted);
+      line-height: 1.35;
+    }
+
+    .status-badge {
+      border-radius: 999px;
+      color: #ffffff;
+      font-size: 11px;
+      font-weight: 600;
+      line-height: 1;
+      padding: 0.3rem 0.45rem;
+      white-space: nowrap;
+      margin-top: 0.1rem;
+      flex: 0 0 auto;
+    }
+
+    .status-badge.good {
+      background: #22c55e;
+    }
+
+    .status-badge.warn {
+      background: #f59e0b;
+    }
+
+    .status-badge.risk {
+      background: #ef4444;
+    }
+
+    .console-footer {
+      margin-top: 0.75rem;
+      padding-top: 0.65rem;
+      border-top: 1px solid #e5e7eb;
+      text-align: center;
+      font-size: 0.75rem;
+      color: var(--muted);
     }
 
     main section {
       padding-block: var(--section-pad);
+      background: #ffffff;
+    }
+
+    main section:nth-of-type(2),
+    main section:nth-of-type(5) {
+      background: var(--bg-elev);
     }
 
     .section-head {
@@ -353,37 +398,26 @@
       padding: 1rem 1.05rem 1.15rem;
       border-radius: 12px;
       border: 1px solid var(--border);
-      background: linear-gradient(180deg, rgba(16, 22, 29, 0.8), rgba(10, 13, 18, 0.88));
+      background: #ffffff;
       min-height: 140px;
-      transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
-    }
-
-    .card::before {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 1px;
-      background: linear-gradient(90deg, transparent, rgba(148, 209, 255, 0.32), transparent);
+      transition: transform 0.25s ease, border-color 0.25s ease;
     }
 
     .card:hover {
       transform: translateY(-3px);
-      border-color: rgba(128, 202, 255, 0.55);
-      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.36), 0 0 0 1px rgba(59, 179, 255, 0.18);
+      border-color: #1b3a5c;
     }
 
     .card p {
       margin: 0.45rem 0 0;
-      color: #d6e0ee;
+      color: var(--text);
       font-size: 1rem;
     }
 
     .step-title,
     .signal-title {
       margin: 0.45rem 0 0;
-      color: #d6e0ee;
+      color: var(--text);
       font-size: 1rem;
       font-weight: 700;
       line-height: 1.45;
@@ -392,42 +426,44 @@
     .step-detail,
     .signal-detail {
       margin: 0.45rem 0 0;
-      color: #b9c9db;
+      color: var(--muted);
       font-size: 0.96rem;
       line-height: 1.5;
     }
 
     .kicker {
-      font-family: var(--mono);
+      font-family: var(--sans);
       font-size: 0.74rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: #8da6c2;
+      letter-spacing: 0;
+      color: var(--muted);
       margin-bottom: 0.4rem;
       display: inline-block;
+      font-weight: 600;
     }
 
     .why-now {
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: clamp(1.2rem, 2vw, 2rem);
-      background: linear-gradient(180deg, rgba(15, 22, 29, 0.85), rgba(11, 14, 19, 0.9));
-      box-shadow: var(--shadow);
+      border: 0;
+      border-radius: 0;
+      padding: clamp(2rem, 5vw, 3.4rem) 0;
+      background: transparent;
+      box-shadow: none;
+      text-align: center;
     }
 
     .why-now p {
       margin: 0;
       font-size: clamp(1.05rem, 1.5vw, 1.22rem);
-      color: #d8e3f1;
+      color: var(--text);
       max-width: 72ch;
+      margin-inline: auto;
     }
 
     .waitlist-wrap {
       border: 1px solid var(--border);
       border-radius: 14px;
       padding: clamp(1.2rem, 2.5vw, 2rem);
-      background: linear-gradient(180deg, rgba(16, 24, 32, 0.86), rgba(10, 14, 19, 0.9));
-      box-shadow: var(--shadow);
+      background: #ffffff;
+      box-shadow: none;
     }
 
     .waitlist-form {
@@ -445,15 +481,15 @@
     label {
       display: block;
       font-size: 0.84rem;
-      color: #b9c7d9;
+      color: var(--muted);
       margin-bottom: 0.4rem;
     }
 
     input[type="email"] {
       width: 100%;
       border-radius: 10px;
-      border: 1px solid rgba(128, 154, 181, 0.46);
-      background: rgba(8, 11, 15, 0.88);
+      border: 1px solid #d1d5db;
+      background: #ffffff;
       color: var(--text);
       padding: 0.78rem 0.8rem;
       font: inherit;
@@ -461,7 +497,12 @@
     }
 
     input[type="email"]::placeholder {
-      color: #7e93a9;
+      color: #9ca3af;
+    }
+
+    input[type="email"]:focus {
+      border-color: #1b3a5c;
+      box-shadow: 0 0 0 2px rgba(27, 58, 92, 0.12);
     }
 
     .helper {
@@ -480,21 +521,23 @@
     }
 
     .inline-link {
-      color: #c8e8ff;
-      text-decoration-color: rgba(200, 232, 255, 0.45);
+      color: #1b3a5c;
+      text-decoration-color: rgba(27, 58, 92, 0.35);
       text-underline-offset: 3px;
       transition: color 0.2s ease, text-decoration-color 0.2s ease;
     }
 
     .inline-link:hover {
-      color: #e8f6ff;
-      text-decoration-color: rgba(232, 246, 255, 0.92);
+      color: #162f4a;
+      text-decoration-color: rgba(22, 47, 74, 0.8);
     }
 
     footer {
       padding-block: 1.4rem 2.5rem;
-      color: #9ab0c6;
+      color: var(--muted);
       font-size: 0.92rem;
+      background: #ffffff;
+      border-top: 1px solid #e2e6ea;
     }
 
     .footer-row {
@@ -523,17 +566,6 @@
       transform: translateY(0);
     }
 
-    @keyframes scan {
-      0% { transform: translateX(-100%); }
-      100% { transform: translateX(100%); }
-    }
-
-    @keyframes pulse {
-      0%, 100% { transform: translateX(-120%); opacity: 0.1; }
-      40% { transform: translateX(10%); opacity: 0.45; }
-      60% { transform: translateX(70%); opacity: 0.25; }
-    }
-
     @media (max-width: 920px) {
       .hero-grid {
         grid-template-columns: 1fr;
@@ -556,7 +588,7 @@
       }
 
       .hero {
-        padding-top: clamp(4rem, 12vh, 6rem);
+        padding-top: 0;
       }
 
       .btn {
@@ -611,27 +643,56 @@
   <header class="hero" aria-label="Introduction">
     <div class="shell hero-grid reveal">
       <div>
-        <p class="eyebrow">Intelligence Platform</p>
+        <p class="eyebrow">Built for consulting firm partners</p>
         <h1>SEE WHAT'S HAPPENING ACROSS YOUR ENGAGEMENTS. BEFORE IT'S TOO LATE.</h1>
-        <p>Focal connects to your Google Drive, Slack, and Notion and automatically surfaces delivery risk, client disengagement, and scope creep, before they become problems you have to explain.</p>
+        <p>Focal tells you which engagements need your attention today — before your team does. No new workflows, no manual input. Just the signals that matter, automatically.</p>
         <div class="cta-row">
-          <a class="btn" href="#waitlist">Request Early Access</a>
+          <a class="btn" href="#waitlist">Join the Waitlist — Free for Founding Firms</a>
         </div>
+        <p>Built from conversations with consulting firm partners.</p>
       </div>
 
       <aside class="console" aria-label="Signal detection overview">
         <div class="console-header">
-          <span>Signal Console</span>
-          <span>Live Monitoring</span>
+          <span>Engagement Health</span>
+          <span class="console-summary">3 active · 1 critical</span>
         </div>
-        <div class="console-grid" aria-hidden="true">
-          <div class="signal-line"></div>
-          <div class="signal-caption"><span>engagement_delta</span><span>+4 anomalies</span></div>
-          <div class="signal-line"></div>
-          <div class="signal-caption"><span>delivery_risk_index</span><span>elevating</span></div>
-          <div class="signal-line"></div>
-          <div class="signal-caption"><span>client_tone_shift</span><span>detected</span></div>
-        </div>
+        <ul class="console-list" aria-hidden="true">
+          <li class="console-item">
+            <div class="console-main">
+              <div class="console-head">
+                <span class="status-dot good"></span>
+                <p class="console-title">Acme Corp — Digital Strategy</p>
+              </div>
+              <p class="console-meta">Last update received 2 days ago · no issues flagged</p>
+            </div>
+            <span class="status-badge good">On Track</span>
+          </li>
+          <li class="console-item">
+            <div class="console-main">
+              <div class="console-head">
+                <span class="status-dot warn"></span>
+                <p class="console-title">Meridian Group — Q1 Ops</p>
+              </div>
+              <p class="console-meta">Key client contact hasn't responded in 4 days</p>
+              <p class="console-meta">Team starting to hedge on deliverables in meeting notes</p>
+            </div>
+            <span class="status-badge warn">Watch</span>
+          </li>
+          <li class="console-item risk-row">
+            <div class="console-main">
+              <div class="console-head">
+                <span class="status-dot risk"></span>
+                <p class="console-title">Vantage Partners — Transformation</p>
+              </div>
+              <p class="console-meta">Client sounding frustrated across last 3 calls</p>
+              <p class="console-meta">No work submitted in 6 days — was daily before</p>
+              <p class="console-meta">Same issue raised 4 times, still no resolution</p>
+            </div>
+            <span class="status-badge risk">At Risk</span>
+          </li>
+        </ul>
+        <p class="console-footer">Last updated 4 minutes ago</p>
       </aside>
     </div>
   </header>
@@ -830,4 +891,6 @@
   </script>
 </body>
 </html>
+
+
 
