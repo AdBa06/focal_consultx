@@ -802,7 +802,14 @@
         </div>
 
         <div class="waitlist-wrap">
-          <form id="waitlist" class="waitlist-form" novalidate aria-label="Early access waitlist form">
+          <form
+            id="waitlist"
+            class="waitlist-form"
+            method="POST"
+            action="https://formspree.io/f/manpqleb"
+            novalidate
+            aria-label="Early access waitlist form"
+          >
             <div class="input-wrap">
               <label for="email">Work email</label>
               <input id="email" name="email" type="email" autocomplete="email" placeholder="name@firm.com" required aria-describedby="waitlist-message" />
@@ -829,6 +836,7 @@
       var form = document.getElementById('waitlist');
       var emailInput = document.getElementById('email');
       var messageEl = document.getElementById('waitlist-message');
+      var submitBtn = form ? form.querySelector('button[type="submit"]') : null;
 
       function setMessage(type, text) {
         messageEl.classList.remove('error', 'success');
@@ -842,7 +850,13 @@
         return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(value);
       }
 
-      form.addEventListener('submit', function (event) {
+      function setSubmitting(isSubmitting) {
+        if (!submitBtn) return;
+        submitBtn.disabled = isSubmitting;
+        submitBtn.textContent = isSubmitting ? 'Sending…' : 'Request Early Access';
+      }
+
+      form.addEventListener('submit', async function (event) {
         event.preventDefault();
         var email = emailInput.value.trim();
 
@@ -855,14 +869,44 @@
 
         emailInput.removeAttribute('aria-invalid');
 
-        try {
-          localStorage.setItem('focal_waitlist_email', email);
-        } catch (error) {
-          // Storage may be unavailable in private browsing; silently continue.
+        var endpoint = (form.getAttribute('action') || '').trim();
+        if (!endpoint || endpoint.indexOf('REPLACE_ME') !== -1) {
+          setMessage('error', 'Signup form is not configured yet. Please try again later.');
+          return;
         }
 
-        setMessage('success', "You're on the list, we'll be in touch.");
-        form.reset();
+        setSubmitting(true);
+        setMessage(null, 'Submitting…');
+
+        try {
+          // Use FormData to avoid CORS preflight issues on some static hosts.
+          var payload = new FormData();
+          payload.append('email', email);
+
+          var res = await fetch(endpoint, {
+            method: 'POST',
+            headers: {
+              'Accept': 'application/json'
+            },
+            body: payload
+          });
+
+          if (!res.ok) {
+            setMessage('error', 'Something went wrong — please try again.');
+            return;
+          }
+
+          try {
+            localStorage.setItem('focal_waitlist_email', email);
+          } catch (error) {}
+
+          setMessage('success', "You're on the list — we'll be in touch.");
+          form.reset();
+        } catch (error) {
+          setMessage('error', 'Network error — please try again.');
+        } finally {
+          setSubmitting(false);
+        }
       });
 
       var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -891,6 +935,5 @@
   </script>
 </body>
 </html>
-
 
 
